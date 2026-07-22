@@ -1,0 +1,1 @@
+{"name":"Local: stringStream","url":"/Users/lakshyatatoo/Documents/backup prone/CODING/dsa/stringStream.cpp","tests":[{"id":1783162964421,"input":"\"1.0\"\n\"1.01\"","output":"1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/lakshyatatoo/Documents/backup prone/CODING/dsa/stringStream.cpp","group":"local","local":true}
