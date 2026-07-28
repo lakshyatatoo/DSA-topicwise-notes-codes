@@ -32,3 +32,34 @@ public:
         return ans;
     }
 };
+
+void solve(int index, vector<int> &arr, int target,
+           vector<int> &ds, vector<vector<int>> &ans)
+{
+
+    if (target == 0)
+    {
+        ans.push_back(ds);
+        return;
+    }
+    if (index == arr.size())
+    {
+        if (target == 0)
+        {
+            ans.push_back(ds);
+        }
+        return;
+    }
+
+    for (int i = index; i < arr.size(); i++)
+    {
+
+        if (arr[i] <= target)
+        {
+
+            ds.push_back(arr[i]);
+            solve(i + 1, arr, target - arr[i], ds, ans);
+            ds.pop_back();
+        }
+    }
+}

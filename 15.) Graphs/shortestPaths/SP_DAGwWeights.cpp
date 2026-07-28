@@ -38,10 +38,12 @@ public:
             st.pop();
             for (auto it : adj[node])
             {
+                int wt = it.second;
+                int adjNode = it.first;
 
-                if (dist[node] + it.second < dist[it.first])
+                if (dist[node] + wt < dist[adjNode])
                 {
-                    dist[it.first] = dist[node] + it.second;
+                    dist[adjNode] = dist[node] + wt;
                 }
             }
         }

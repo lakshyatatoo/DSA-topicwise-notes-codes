@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//brute
+// brute
 bool isPalindrome(string s, int left, int right)
 {
     while (left < right)
@@ -24,10 +24,10 @@ string longestPalindrome(string s)
         {
             if (isPalindrome(s, i, j))
             {
-                int x=j-i+1;
-                mL = max(mL, x);
-                if (mL == x)
+                int x = j - i + 1;
+                if (x > mL)
                 {
+                    mL = x;
                     start = i;
                 }
             }
@@ -36,29 +36,33 @@ string longestPalindrome(string s)
     return s.substr(start, mL);
 }
 
-
-
-//optimal
-int expandAC(string s,int left,int right){
-    while(left>=0 && right<s.size() && s[left]==s[right]){
+// optimal
+int expandAC(string s, int left, int right)
+{
+    while (left >= 0 && right < s.size() && s[left] == s[right])
+    {
         left--;
         right++;
     }
-    return right-left-1;
+    return right - left - 1;
 }
-string longestPalindrome(string s){
-    if(s.empty())return "";
-    int n=s.size();
-    int start=0;
-    int end=0;
-    for(int i=0;i<n;i++){
-        int even=expandAC(s,i,i);
-        int odd=expandAC(s,i,i+1);
-        int maxLen=max(even,odd);
-        if(maxLen>end-start){
-            start=i-(maxLen-1)/2;
-            end=i+maxLen/2;
+string longestPalindrome(string s)
+{
+    if (s.empty())
+        return "";
+    int n = s.size();
+    int start = 0;
+    int end = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int even = expandAC(s, i, i);
+        int odd = expandAC(s, i, i + 1);
+        int maxLen = max(even, odd);
+        if (maxLen > end - start + 1)
+        {
+            start = i - (maxLen - 1) / 2;
+            end = i + maxLen / 2;
         }
     }
-    return s.substr(start,end-start+1);
+    return s.substr(start, end - start + 1);
 }

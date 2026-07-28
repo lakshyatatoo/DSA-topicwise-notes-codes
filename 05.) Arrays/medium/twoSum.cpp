@@ -47,6 +47,7 @@ public:
 };
 
 // optimal only for yes/no
+// sorted array
 class Solution
 {
 public:

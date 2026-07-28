@@ -4,8 +4,34 @@ using namespace std;
 // brtue -- generate all subarrays and check count of odd numbers and break if count>k
 
 // better --  hashing
+class Solution
+{
+public:
+    int numberOfSubarrays(vector<int> &nums, int k)
+    {
+        unordered_map<int, int> mp;
+        mp[0] = 1;
+
+        int pref = 0;
+        int ans = 0;
+
+        for (int x : nums)
+        {
+            pref += (x % 2);
+
+            if (mp.count(pref - k))
+                ans += mp[pref - k];
+
+            mp[pref]++;
+        }
+
+        return ans;
+    }
+};
 
 // optimal --  binary subaaray sum prblem treat od as 1 and even as 0 by %2 and find no of subarrays with sum=k
+
+// for each window with sum=k we count number of subarrays ending at r ie r-l+1
 class Solution
 {
 public:
@@ -24,7 +50,7 @@ public:
                 sum -= nums[l] % 2;
                 l++;
             }
-            cnt = cnt + (r - l + 1);
+            cnt += (r - l + 1);
             r++;
         }
         return cnt;

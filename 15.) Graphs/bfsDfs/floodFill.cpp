@@ -26,11 +26,46 @@ public:
     vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int color)
     {
         vector<vector<int>> ans = image;
-        int iColor = image[sr][sc];
-        int nColor = color;
-        int srow = sr;
-        int scol = sc;
-        dfs(srow, scol, iColor, nColor, ans, image);
+        int iC = image[sr][sc];
+        int nC = color;
+        dfs(sr, sc, iC, nC, ans, image);
+        return ans;
+    }
+};
+
+// bit more space compexity save approach
+class Solution
+{
+private:
+    void dfs(int row, int col, int color, int ic, vector<vector<int>> &ans)
+    {
+        int dr[] = {-1, 0, 1, 0};
+        int dc[] = {0, 1, 0, -1};
+        int n = ans.size();
+        int m = ans[0].size();
+        for (int i = 0; i < 4; i++)
+        {
+            int nrow = row + dr[i];
+            int ncol = col + dc[i];
+            if (nrow < n && nrow >= 0 && ncol >= 0 && ncol < m &&
+                ans[nrow][ncol] == ic)
+            {
+                ans[nrow][ncol] = color;
+                dfs(nrow, ncol, color, ic, ans);
+            }
+        }
+    }
+
+public:
+    vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc,
+                                  int color)
+    {
+        vector<vector<int>> ans = image;
+        int ic = image[sr][sc];
+        if (ic == color)
+            return ans;
+        ans[sr][sc] = color;
+        dfs(sr, sc, color, ic, ans);
         return ans;
     }
 };
