@@ -3,9 +3,8 @@ using namespace std;
 
 class disjoint
 {
-    vector<int> rank, parent, size;
-
 public:
+    vector<int> rank, parent, size;
     disjoint(int n)
     {
         rank.resize(n + 1, 0), size.resize(n + 1, 1), parent.resize(n + 1);
@@ -41,60 +40,33 @@ public:
             parent[up] = vp, size[vp] += size[up];
     }
 };
-
-//
-//
-//
-// gfg format
-
-class disjoint
-{
-    vector<int> rank, parent, size;
-
-public:
-    disjoint(int n)
-    {
-        rank.resize(n + 1, 0);
-        size.resize(n + 1, 1);
-        parent.resize(n + 1);
-        for (int i = 0; i <= n; i++)
-        {
-            parent[i] = i;
-        }
-    }
-    int findUp(int node)
-    {
-        if (node == parent[node])
-            return node;
-        return parent[node] = findUp(parent[node]);
-    }
-    void unionByRank(int u, int v)
-    {
-        int up = findUp(u);
-        int vp = findUp(v);
-        if (up != vp)
-            parent[up] = vp;
-    }
-};
 class Solution
 {
 public:
-    vector<int> DSU(int n, vector<vector<int>> &queries)
+    int makeConnected(int n, vector<vector<int>> &connections)
     {
         disjoint ds(n);
-        vector<int> ans;
-        for (auto it : queries)
+        int ee = 0;
+        int ans = 0;
+        for (auto it : connections)
         {
-            if (it[0] == 1)
-            {
-                ds.unionByRank(it[1], it[2]);
-            }
-            else if (it[0] == 2)
-            {
-                int x = ds.findUp(it[1]);
-                ans.push_back(x);
-            }
+            int u = it[0];
+            int v = it[1];
+            if (ds.findUp(u) == ds.findUp(v))
+                ee++;
+            else
+                ds.unionByRank(u, v);
         }
-        return ans;
+        int cnt = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (ds.parent[i] == i)
+                cnt++;
+        }
+        int ans = cnt - 1;
+        if (ee >= ans)
+            return ans;
+        else
+            return -1;
     }
 };

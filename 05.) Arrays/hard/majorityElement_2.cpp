@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 // brute loops
+// tc=O(n^2)
+// sc=O(1)
 class Solution
 {
 public:
@@ -112,10 +114,10 @@ public:
             }
         }
         if (cntf1 > n / 3)
-            // .or >= n / 3 + 1
-            {
-                ans.push_back(cand1);
-            }
+        // .or >= n / 3 + 1
+        {
+            ans.push_back(cand1);
+        }
 
         if (cntf2 > n / 3)
             ans.push_back(cand2);
