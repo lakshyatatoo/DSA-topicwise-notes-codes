@@ -2,6 +2,7 @@
 using namespace std;
 
 // brute
+// tc=O(n)
 double powxn(double x, int n)
 {
     double ans = 1;
@@ -13,50 +14,54 @@ double powxn(double x, int n)
 }
 
 // optimal
+// tc=O(logn)
 long long powxN(double x, int n)
 {
 
-    long long ans = 1;
+    long long ans = 1, y = n;
+    bool isNegative = false;
+    if (y < 0)
+    {
+        isNegative = true, y = -y;
+    }
     while (n != 0)
     {
 
         if (n % 2 == 0)
-        {
-            x *= x;
-            n /= 2;
-        }
+            x *= x, n /= 2;
         else
-        {
-            ans *= x;
-            n--;
-        }
+            ans *= x, n--;
     }
+    if (isNegative)
+        return 1 / ans;
     return ans;
 }
 
 // optimal recurison
-double powXn(double x, long long n)
+class Solution
 {
-    if (n == 0)
-        return 1;
-    if (n % 2 == 0)
+    double pow(double x, long long n)
     {
-        return powXn(x * x, n / 2);
+        if (n == 0)
+            return 1;
+        if (n % 2 == 0)
+        {
+            return pow(x * x, n / 2);
+        }
+        else
+        {
+            return x * pow(x, n - 1);
+        }
     }
-    else
+
+public:
+    double myPow(double x, int n)
     {
-        return x * powXn(x, n - 1);
+        long long y = n;
+        if (y < 0)
+        {
+            return 1 / pow(x, -y);
+        }
+        return pow(x, y);
     }
-}
-
-// main function
-double myPow(double x, int n)
-{
-
-    long long temp = n;
-
-    if (temp < 0)
-        return 1.0 / powXn(x, -temp);
-
-    return powXn(x, temp);
-}
+};
