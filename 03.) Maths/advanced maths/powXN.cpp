@@ -24,13 +24,13 @@ long long powxN(double x, int n)
     {
         isNegative = true, y = -y;
     }
-    while (n != 0)
+    while (y != 0)
     {
 
-        if (n % 2 == 0)
-            x *= x, n /= 2;
+        if (y % 2 == 0)
+            x *= x, y /= 2;
         else
-            ans *= x, n--;
+            ans *= x, y--;
     }
     if (isNegative)
         return 1 / ans;

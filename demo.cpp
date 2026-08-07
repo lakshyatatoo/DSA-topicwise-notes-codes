@@ -1,105 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
-class disjoint
-{
-public:
-    vector<int> rank, size, parent;
-    disjoint(int n)
-    {
-        rank.resize(n + 1, 0), size.resize(n + 1, 1), parent.resize(n + 1, 0);
-        for (int i = 0; i <= n; i++)
-        {
-            parent[i] = i;
-        }
-    }
-    int findup(int node)
-    {
-        if (parent[node] == node)
-            return node;
-        return parent[node] = findup(parent[node]);
-    }
-    void unionByRank(int u, int v)
-    {
-        int up = findup(u);
-        int vp = findup(v);
-        if (up == vp)
-            return;
-        else if (rank[up] < rank[vp])
-        {
-            parent[up] = vp;
-        }
-        else if (rank[up] > rank[vp])
-        {
-            parent[vp] = up;
-        }
-        else
-        {
-            parent[up] = vp;
-            rank[vp]++;
-        }
-    }
-    void unionBySize(int u, int v)
-    {
-        int up = findup(u);
-        int vp = findup(v);
-        if (up == vp)
-            return;
-        else if (size[up] < size[vp])
-        {
-            parent[up] = vp;
-            size[vp] += size[up];
-        }
-        else
-        {
-            parent[vp] = up;
-            size[up] += size[vp];
-        }
-    }
-};
 class Solution
 {
-public:
-    vector<vector<string>> accountsMerge(vector<vector<string>> &accounts)
+private:
+    int mn = INT_MAX;
+    void bfs(int node, vector<vector<int>> &adj, int n)
     {
-        unordered_map<string, int> mailNode;
-        int n = accounts.size();
-        disjoint ds(n);
-        for (int i = 0; i < n; i++)
+        vector<int> depth(n, -1);
+        vector<int> parent(n, -1);
+        depth[node] = 0;
+
+        queue<int> q;
+        q.push(node);
+        while (!q.empty())
         {
-            for (int j = 1; j < accounts[i].size(); j++)
+            int x = q.front();
+            q.pop();
+            for (auto it : adj[x])
             {
-                string mail = accounts[i][j];
-                if (mailNode.find(mail) != mailNode.end())
+                if (depth[it] == -1)
                 {
-                    ds.unionByRank(i, mailNode[mail]);
+                    depth[it] = 1 + depth[x];
+                    parent[it] = x;
+                    q.push(it);
                 }
-                else
+                else if (parent[x] != it)
                 {
-                    mailNode[mail] = i;
+                    mn = min(mn, depth[x] + depth[it] + 1);
                 }
             }
         }
-        vector<vector<string>> mailCollect(n);
-        for (auto it : mailNode)
+    }
+
+public:
+    int findShortestCycle(int n, vector<vector<int>> &edges)
+    {
+        vector<vector<int>> adj(n);
+        for (auto it : edges)
         {
-            string mail = it.first;
-            int node = ds.findup(it.second);
-            mailCollect[node].push_back(mail);
+            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
         }
-        vector<vector<string>> ans;
+        vector<int> vis(n, 0);
+        vector<int> depth(n, 0);
         for (int i = 0; i < n; i++)
         {
-            if (mailCollect[i].size() == 0)
-                continue;
-            vector<string> temp;
-            temp.push_back(accounts[i][0]);
-            for (auto x : mailCollect[i])
+            if (!vis[i])
             {
-                temp.push_back(x);
+                bfs(i, adj, n);
             }
-            ans.push_back(temp);
         }
-        return ans;
+        if (mn == INT_MAX)
+            return -1;
+        return mn;
     }
 };

@@ -32,9 +32,9 @@ void fib(vector<int> &a, int i, int n) // updation on original so no out of boun
 {
     if (i > n)
         return;
-
-    cout << a[i] + a[i - 1] << " ";
-
+    int next = a[i] + a[i - 1];
+    a.push_back(next);
+    cout << next << " ";
     fib(a, i + 1, n);
 }
 int main()
@@ -42,10 +42,8 @@ int main()
     int n;
     cin >> n; // will print n fibonacci nos after 0 and 1
     vector<int> a;
-    a.push_back(0);
-    a.push_back(1);
-    cout<<0<<" "<<1<<" ";
-
+    a.push_back(0), a.push_back(1);
+    cout << 0 << " " << 1 << " ";
     fib(a, 1, n);
 }
 
@@ -58,10 +56,7 @@ int fib(int n)
     if (n <= 1)
         return n;
 
-    int last = fib(n - 1);
-    int slast = fib(n - 2);
-
-    return last + slast;
+    return fib(n - 1) + fib(n - 2);
 }
 int main()
 {
