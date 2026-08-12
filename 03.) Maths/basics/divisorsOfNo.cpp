@@ -1,7 +1,10 @@
-// //basic also right but here we target tc of less than o(n);
-// class Solution {
-// public:
-//     void print_divisors(int n) {
+// brute
+//  //basic also right but here we target tc of less than o(n);
+
+// brt
+//  class Solution {
+//  public:
+//      void print_divisors(int n) {
 
 //         vector<int> divon;
 

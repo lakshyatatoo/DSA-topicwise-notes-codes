@@ -1,6 +1,8 @@
-// a better approach will be just decremnt from min(a,b) to i-- so we break at gcd
 #include <bits/stdc++.h>
 using namespace std;
+
+// brute force approach
+// or we can just decremnt from min(a,b) to i-- so we break at gcd
 class Solution
 {
 public:
@@ -30,3 +32,29 @@ public:
         return gclc;
     }
 };
+
+// optimlal for hcf and lcm
+// eucledian
+// tc: o(log(min(a,b)))
+int main()
+{
+    int a, b;
+    cin >> a >> b;
+
+    while (a > 0 && b > 0)
+    {
+        if (a > b)
+            a = a % b;
+        else
+            b = b % a;
+    }
+
+    if (b == 0)
+    {
+        cout << a << endl;
+    }
+    else
+    {
+        cout << b << endl;
+    }
+}

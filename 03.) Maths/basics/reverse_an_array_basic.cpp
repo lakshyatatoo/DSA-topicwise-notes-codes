@@ -1,46 +1,41 @@
-// #include <bits/stdc++.h>
-// using namespace std;
-// int main()
-// {
-//     int n;
-//     cin >> n;
-//     int arr[n];
-//     for (int i = 0; i < n; i++)
-//     {
-//         cin >> arr[i];
-//     }
-//     int a = 0, b = n - 1;
-//     while (a < b) // or swap and
-//     {
-//         int temp = arr[a];
-//         arr[a] = arr[b];
-//         arr[b] = temp;
+#include <bits/stdc++.h>
+using namespace std;
 
-//         a++;
-//         b--;
-//     }
-//     for (int i = 0; i < n; i++)
-//     {
-//         cout << arr[i] << " ";
-//     }
-//     cout << endl;
-// }
+// brute using a temp array and then reversing it
+class Solution
+{
+public:
+    void reverseArray(vector<int> &arr)
+    {
+        int n = arr.size();
+        vector<int> temp;
+        for (int i = n - 1; i >= 0; i--)
+        {
+            temp.push_back(arr[i]);
+        }
+        for (int i = 0; i < n; i++)
+        {
+            arr[i] = temp[i];
+        }
+    }
+};
+// optimal in place
+class Solution
+{
+public:
+    void reverseArray(vector<int> &arr)
+    {
+        int n = arr.size();
 
-// //
-// class Solution {
-//   public:
-//     void reverseArray(vector<int> &arr) {
-//         // code here
+        int a = 0;
+        int b = n - 1;
 
-//    int  n=arr.size();
-//     int a = 0, b = n - 1;
-//     while (a < b)
-//     {
-//         swap(arr[a],arr[b]);
+        while (a < b)
+        {
+            swap(arr[a], arr[b]);
 
-//         a++;
-//         b--;
-//     }
-
-// }
-// };
+            a++;
+            b--;
+        }
+    }
+};

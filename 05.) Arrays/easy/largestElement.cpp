@@ -1,35 +1,39 @@
-// // brute is sort and largest element
-// class Solution {
-//   public:
-//     int largest(vector<int> &arr) {
-//         // code here
-//         int n=arr.size();
+#include <bits/stdc++.h>
+using namespace std;
 
-//         sort(arr.begin(),arr.end());
+// brute is sort and largest element
+class Solution
+{
+public:
+    int largest(vector<int> &arr)
+    {
+        // code here
+        int n = arr.size();
 
-//         int le=arr[n-1];
+        sort(arr.begin(), arr.end());
 
-//         return le;
+        int le = arr[n - 1];
 
-//     }
-// };
+        return le;
+    }
+};
 
-// // optimal
-// class Solution
-// {
-// public:
-//     int largest(vector<int> &arr)
-//     {
-//         // code here
-//         int n = arr.size();
-//         int maxim = arr[0];
-//         for (int i = 0; i < n; i++)
-//         {
-//             if (arr[i] > maxim)
-//             {
-//                 maxim = arr[i]; // or use max function for maxim as 0
-//             }
-//         }
-//         return maxim;
-//     }
-// };
+// optimal
+class Solution
+{
+public:
+    int largest(vector<int> &arr)
+    {
+        // code here
+        int n = arr.size();
+        int maxim = arr[0];
+        for (int i = 0; i < n; i++)
+        {
+            if (arr[i] > maxim)
+            {
+                maxim = arr[i]; // or use max function for maxim as 0
+            }
+        }
+        return maxim;
+    }
+};

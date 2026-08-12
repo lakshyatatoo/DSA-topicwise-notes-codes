@@ -1,36 +1,46 @@
-// //brute
-// class Solution {
-// public:
-//     int removeDuplicates(vector<int>& nums) {//brute
-//         set<int> unq;//storing in set
-//         int n=nums.size();
-//         for(int i=0;i<n;i++){
-//             unq.insert(nums[i]);
-//         }
+#include <bits/stdc++.h>
+using namespace std;
+// brute storing in set and set size is unique and sorted
+class Solution
+{
+public:
+    int removeDuplicates(vector<int> &nums)
+    {                 // brute
+        set<int> unq; // storing in set
+        int n = nums.size();
+        for (int i = 0; i < n; i++)
+        {
+            unq.insert(nums[i]);
+        }
 
-//         int index=0;
-//         for(auto x:unq){
-//             nums[index]=x;
-//             index++;
-//         }
-//         return index;
-//     }
-// };
+        int index = 0;
+        for (auto x : unq)
+        {
+            nums[index] = x;
+            index++;
+        }
+        return index;
+    }
+};
 
-// //optimal
-// class Solution {
-// public:
-//     int removeDuplicates(vector<int>& nums) {
+// optimal
+class Solution
+{
+public:
+    int removeDuplicates(vector<int> &nums)
+    {
 
-//         int n=nums.size();
-//         int i=0;
-//         for(int j=1;j<n;j++){
-//             if(nums[j]!=nums[i]){
-//                 nums[i+1]=nums[j];
-//                 i++;
-//             }
-//         }
+        int n = nums.size();
+        int i = 0;
+        for (int j = 1; j < n; j++)
+        {
+            if (nums[j] != nums[i])
+            {
+                nums[i + 1] = nums[j];
+                i++;
+            }
+        }
 
-//         return i+1;
-//     }
-// };
+        return i + 1;
+    }
+};

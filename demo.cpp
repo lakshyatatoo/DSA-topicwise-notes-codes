@@ -4,55 +4,40 @@ using namespace std;
 class Solution
 {
 private:
-    int mn = INT_MAX;
-    void bfs(int node, vector<vector<int>> &adj, int n)
+    void solve(int ind, vector<int> &coins, int target, int &cnt, int currCnt)
     {
-        vector<int> depth(n, -1);
-        vector<int> parent(n, -1);
-        depth[node] = 0;
-
-        queue<int> q;
-        q.push(node);
-        while (!q.empty())
+        if (target == 0)
         {
-            int x = q.front();
-            q.pop();
-            for (auto it : adj[x])
+            cnt = min(cnt, currCnt);
+            return;
+        }
+        if (ind == coins.size())
+        {
+            return;
+        }
+        for (int i = ind; i < coins.size(); i++)
+        {
+            if (coins[i] <= target)
             {
-                if (depth[it] == -1)
-                {
-                    depth[it] = 1 + depth[x];
-                    parent[it] = x;
-                    q.push(it);
-                }
-                else if (parent[x] != it)
-                {
-                    mn = min(mn, depth[x] + depth[it] + 1);
-                }
+                target -= coins[i];
+                currCnt++;
+                solve(i, coins, target, cnt, currCnt);
+                target += coins[i];
+                currCnt--;
             }
         }
     }
 
 public:
-    int findShortestCycle(int n, vector<vector<int>> &edges)
+    int coinChange(vector<int> &coins, int amount)
     {
-        vector<vector<int>> adj(n);
-        for (auto it : edges)
-        {
-            adj[it[0]].push_back(it[1]);
-            adj[it[1]].push_back(it[0]);
-        }
-        vector<int> vis(n, 0);
-        vector<int> depth(n, 0);
-        for (int i = 0; i < n; i++)
-        {
-            if (!vis[i])
-            {
-                bfs(i, adj, n);
-            }
-        }
-        if (mn == INT_MAX)
+        sort(coins.begin(), coins.end(), greater<int>());
+        int cnt = INT_MAX;
+        if (amount == 0)
+            return 0;
+        solve(0, coins, amount, cnt, 0);
+        if (cnt == INT_MAX)
             return -1;
-        return mn;
+        return cnt;
     }
 };

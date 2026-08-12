@@ -1,13 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
-// brute
+
+// ============================================================
+// Brute Force
+// ============================================================
+// Idea:
+// Store all non-zero elements in a temporary vector.
+// Copy them back to nums.
+// Fill the remaining positions with zero.
+//
+// TC: O(n)
+// SC: O(n)
+
 class Solution
 {
 public:
     void moveZeroes(vector<int> &nums)
     {
         int n = nums.size();
+
         vector<int> temp;
+
+        // Store non-zero elements
         for (int i = 0; i < n; i++)
         {
             if (nums[i] != 0)
@@ -15,10 +29,14 @@ public:
                 temp.push_back(nums[i]);
             }
         }
+
+        // Put non-zero elements back
         for (int i = 0; i < temp.size(); i++)
         {
             nums[i] = temp[i];
         }
+
+        // Fill remaining positions with zero
         for (int i = temp.size(); i < n; i++)
         {
             nums[i] = 0;
@@ -26,42 +44,36 @@ public:
     }
 };
 
-// optimal
+// ============================================================
+// Optimal
+// ============================================================
+// Idea:
+// Find the first zero.
+// i points to the position where the next non-zero element
+// should be placed.
+//
+// When we find a non-zero element at j, swap it with nums[i]
+// and move i forward.
+//
+// TC: O(n)
+// SC: O(1)
 class Solution
 {
 public:
     void moveZeroes(vector<int> &nums)
     {
-        bool haszero = false;
-        for (int x : nums)
+        int i = 0, n = nums.size();
+        while (i < n && nums[i] != 0)
         {
-            if (x == 0)
-            {
-                haszero = true;
-                break;
-            }
+            i++;
         }
-        if (!haszero)
+        int j = i;
+        while (j < n)
         {
-            return;
-        }
-        int j = 0;
-        for (int i = 0; i < nums.size(); i++)
-        {
-            if (nums[i] == 0)
-            {
-                j = i;
-                break;
-            }
-
-        } // j set equal to first zeros index
-        for (int i = j + 1; i < nums.size(); i++)
-        {
-            if (nums[i] != 0)
-            {
-                swap(nums[i], nums[j]);
+            while (j < n && nums[j] == 0)
                 j++;
-            }
+            if (j < n)
+                swap(nums[i++], nums[j]);
         }
     }
 };
