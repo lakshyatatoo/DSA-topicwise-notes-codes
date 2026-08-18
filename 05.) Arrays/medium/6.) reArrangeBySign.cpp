@@ -1,13 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
-// brute (using pos neg arrayts)
+
+// ============================================================
+// 1. BRUTE — USING POSITIVE AND NEGATIVE ARRAYS
+// Equal number of positive and negative elements
+//
+// Time: O(n)
+// Space: O(n)
+// ============================================================
+
 class Solution
 {
 public:
     vector<int> rearrangeArray(vector<int> &nums)
     {
         int n = nums.size();
+
         vector<int> pos, neg;
+
+        // Separate positive and negative elements
         for (int i = 0; i < n; i++)
         {
             if (nums[i] < 0)
@@ -19,25 +30,38 @@ public:
                 pos.push_back(nums[i]);
             }
         }
+
+        // Place positive and negative alternately
         for (int i = 0; i < n / 2; i++)
         {
             nums[2 * i] = pos[i];
             nums[(2 * i) + 1] = neg[i];
         }
+
         return nums;
     }
 };
 
-// optimal approach 2pointter
+// ============================================================
+// 2. OPTIMAL — TWO POINTERS / POSITION POINTERS
+// Equal number of positive and negative elements
+//
+// Time: O(n)
+// Space: O(n)
+// ============================================================
+
 class Solution
 {
 public:
     vector<int> rearrangeArray(vector<int> &nums)
     {
         int n = nums.size();
+
         vector<int> ans(n, 0);
+
         int pos = 0;
         int neg = 1;
+
         for (int i = 0; i < n; i++)
         {
             if (nums[i] < 0)
@@ -51,19 +75,31 @@ public:
                 pos += 2;
             }
         }
+
         return ans;
     }
 };
 
-// for unequal count of positives and negatives
-// brute
+// ============================================================
+// 3. BRUTE — UNEQUAL NUMBER OF POSITIVE AND NEGATIVE ELEMENTS
+//
+// First arrange elements alternately until one type runs out.
+// Then append the remaining elements.
+//
+// Time: O(n)
+// Space: O(n)
+// ============================================================
+
 class Solution
 {
 public:
     vector<int> rearrangeArray(vector<int> &nums)
     {
         int n = nums.size();
+
         vector<int> pos, neg;
+
+        // Separate positive and negative elements
         for (int i = 0; i < n; i++)
         {
             if (nums[i] < 0)
@@ -75,10 +111,13 @@ public:
                 pos.push_back(nums[i]);
             }
         }
+
         int x = pos.size();
         int y = neg.size();
+
         int minCount = min(x, y);
 
+        // Arrange alternately while both are available
         for (int i = 0; i < minCount; i++)
         {
             nums[2 * i] = pos[i];
@@ -87,13 +126,14 @@ public:
 
         int indexx = minCount * 2;
 
+        // Add remaining positive elements
         for (int i = minCount; i < x; i++)
         {
             nums[indexx] = pos[i];
             indexx++;
         }
-        // adding rem pos and negs
 
+        // Add remaining negative elements
         for (int i = minCount; i < y; i++)
         {
             nums[indexx] = neg[i];

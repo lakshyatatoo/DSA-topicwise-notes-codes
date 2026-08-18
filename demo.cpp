@@ -3,41 +3,25 @@ using namespace std;
 #define ll long long
 class Solution
 {
-private:
-    void solve(int ind, vector<int> &coins, int target, int &cnt, int currCnt)
+public:
+    int maxSum(vector<vector<int>> &grid)
     {
-        if (target == 0)
+        int mxSum = 0;
+        int n = grid.size();
+        int m = grid[0].size();
+        for (int i = 0; i < n; i++)
         {
-            cnt = min(cnt, currCnt);
-            return;
-        }
-        if (ind == coins.size())
-        {
-            return;
-        }
-        for (int i = ind; i < coins.size(); i++)
-        {
-            if (coins[i] <= target)
+            for (int j = 0; j < m; j++)
             {
-                target -= coins[i];
-                currCnt++;
-                solve(i, coins, target, cnt, currCnt);
-                target += coins[i];
-                currCnt--;
+                if (j + 2 < m && i + 2 < n)
+                {
+                    int sum = grid[i][j] + grid[i][j + 1] + grid[i][j + 2] +
+                              grid[i + 1][j + 1] + grid[i + 2][j] +
+                              grid[i + 2][j + 1] + grid[i + 2][j + 2];
+                    mxSum = max(mxSum, sum);
+                }
             }
         }
-    }
-
-public:
-    int coinChange(vector<int> &coins, int amount)
-    {
-        sort(coins.begin(), coins.end(), greater<int>());
-        int cnt = INT_MAX;
-        if (amount == 0)
-            return 0;
-        solve(0, coins, amount, cnt, 0);
-        if (cnt == INT_MAX)
-            return -1;
-        return cnt;
+        return mxSum;
     }
 };

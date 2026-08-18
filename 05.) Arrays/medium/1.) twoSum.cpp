@@ -1,12 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
-// brute 2 loops
+
+// ============================================================
+// 1. BRUTE FORCE
+// Time: O(n^2)
+// Space: O(1)
+// Returns indexes
+// ============================================================
+
 class Solution
 {
 public:
     vector<int> twoSum(vector<int> &a, int target)
     {
-
         int n = a.size();
 
         for (int i = 0; i < n; i++)
@@ -19,11 +25,18 @@ public:
                 }
             }
         }
+
         return {};
     }
 };
 
-// better (hashing) optimal for indexes
+// ============================================================
+// 2. BETTER — HASHING
+// Time: O(n log n) using map
+// Space: O(n)
+// Returns indexes
+// ============================================================
+
 class Solution
 {
 public:
@@ -31,41 +44,52 @@ public:
     {
         int n = nums.size();
         map<int, int> mp;
-        int rem = 0;
+
         for (int i = 0; i < n; i++)
         {
-            int a = nums[i];
-            rem = target - a;
-            if (mp.find(rem) != mp.end() && mp[rem] != i)
+            int rem = target - nums[i];
+
+            if (mp.find(rem) != mp.end())
             {
                 return {i, mp[rem]};
             }
-            mp[a] = i;
+
+            mp[nums[i]] = i;
         }
+
         return {};
     }
 };
 
-// optimal only for yes/no
-// sorted array
+// ============================================================
+// 3. OPTIMAL — TWO POINTERS
+// Time: O(n log n) because of sorting
+// Space: O(1) extra
+// Returns only YES/NO
+// ============================================================
+
 class Solution
 {
 public:
     bool twoSum(vector<int> &nums, int target)
     {
         int n = nums.size();
-        int l = 0, r = n - 1;
+
         sort(nums.begin(), nums.end());
+
+        int l = 0;
+        int r = n - 1;
+
         while (l < r)
         {
             int sum = nums[l] + nums[r];
+
             if (sum == target)
             {
                 return true;
             }
             else if (sum < target)
             {
-
                 l++;
             }
             else
@@ -73,6 +97,7 @@ public:
                 r--;
             }
         }
+
         return false;
     }
 };

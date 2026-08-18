@@ -24,18 +24,13 @@ public:
         while (i < n)
         {
             if (s[i] <= 'Z' && s[i] >= 'A' || s[i] <= 'z' && s[i] >= 'a' || s[i] <= '9' && s[i] >= '0')
-            {
                 ans += s[i];
-            }
             else if (s[i] == '(')
                 st.push(s[i]);
             else if (s[i] == ')')
             {
                 while (!st.empty() && st.top() != '(')
-                {
-                    ans += st.top();
-                    st.pop();
-                }
+                    ans += st.top(), st.pop();
                 if (!st.empty())
                 {
                     st.pop();
