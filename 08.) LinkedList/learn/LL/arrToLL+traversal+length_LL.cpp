@@ -12,6 +12,7 @@ public:
         data = data1;
         next = next1;
     }
+
 public:
     Node(int data1)
     {
@@ -21,6 +22,7 @@ public:
 };
 
 // to return a node ie head of LL
+//
 Node *convertToLL(const vector<int> &arr)
 {
     Node *head = new Node(arr[0], nullptr);

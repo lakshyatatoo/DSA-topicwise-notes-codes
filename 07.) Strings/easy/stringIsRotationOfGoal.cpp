@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+// problem statement: check if a string is rotation of another string
 // brute
 void rotateWordByUnit(string &s)
 {

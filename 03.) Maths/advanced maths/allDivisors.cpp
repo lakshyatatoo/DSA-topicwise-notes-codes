@@ -29,4 +29,4 @@ vector<int> allDivs(int n)
         }
     }
     return ans;
-}
+}//

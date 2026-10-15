@@ -123,7 +123,7 @@ public:
         long long sum = 0;
         for (int i = 0; i < n; i++)
         {
-            int left = i - pgee[i];
+            int left = i - pgee[i]; // because we want to count the current element as well in case of duplicates
             int right = nge[i] - i;
             long long total_subarrays = (left * 1LL * right);
             long long contribution = (total_subarrays * arr[i]);

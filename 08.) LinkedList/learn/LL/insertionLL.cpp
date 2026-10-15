@@ -114,7 +114,7 @@ Node *insertBeforeVal(Node *head, int data, int x)
         temp = temp->next;
     }
     return head;
-}
+} //
 
 int main()
 {

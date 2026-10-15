@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// brute
+// problem statement: longest common prefix in an array of strings where all strings are in lowercase
+//  brute
 string longestCommonPrefix(vector<string> &strs)
 {
     if (strs.size() == 1)

@@ -21,6 +21,7 @@ public:
     }
 };
 
+// tc = O(n) and sc = O(n)
 class LinkedList
 {
     // to return a node ie head of LL

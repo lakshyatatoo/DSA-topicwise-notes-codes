@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+// problem statement: beauty of all substrings meaning the difference between the maximum and minimum frequency of characters in a substring
 // brute
 int indiBeauty(int i, int j, string s)
 {

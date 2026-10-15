@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+// problem statement: add 1 to a number represented as a linked list
 class Node
 {
 public:
@@ -93,26 +95,30 @@ Node *add1ToLL(Node *head)
     head = optimalReverseLL(head);
     return head;
 }
-int helper(Node* temp){
-    if(temp==nullptr) return 1;
+int helper(Node *temp)
+{
+    if (temp == nullptr)
+        return 1;
 
-    int carry=helper(temp->next);
+    int carry = helper(temp->next);
 
-    temp->data+=carry;
+    temp->data += carry;
 
-    if(temp->data<10){
+    if (temp->data < 10)
+    {
         return 0;
     }
-    temp->data=0;
+    temp->data = 0;
     return 1;
 }
 Node *recursiveAdd1ToLL(Node *head)
 {
-  int carry=helper(head);
+    int carry = helper(head);
 
-    if(carry==1){
-        Node *newNode=new Node(carry);
-        newNode->next=head;
+    if (carry == 1)
+    {
+        Node *newNode = new Node(carry);
+        newNode->next = head;
         return newNode;
     }
     return head;

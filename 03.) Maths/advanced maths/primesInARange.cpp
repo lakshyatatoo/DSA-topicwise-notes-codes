@@ -93,7 +93,8 @@ public:
         {
             seive[i] += seive[i - 1];
         }
-        int ans = seive[r] - seive[l - 1];
+        // int ans = seive[r] - seive[l - 1];
         return ans;
     }
 };
+//

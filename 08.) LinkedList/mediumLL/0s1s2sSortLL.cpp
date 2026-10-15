@@ -44,7 +44,7 @@ void printLL(Node *head)
     }
     cout << endl;
 }
-
+// problem statement: sort a linked list of 0s, 1s and 2s
 Node *bruteSort012(Node *head)
 {
     Node *temp = head;
@@ -116,7 +116,7 @@ Node *optimalSort012(Node *head)
     z->next = (oH->next) ? oH->next : tH->next;
     o->next = tH->next;
     t->next = nullptr;
-    Node* newHead = zH->next;
+    Node *newHead = zH->next;
     delete zH;
     delete oH;
     delete tH;

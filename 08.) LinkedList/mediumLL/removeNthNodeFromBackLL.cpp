@@ -79,6 +79,8 @@ Node *bruteRemoveNthNode(Node *head, int n)
     return head;
 }
 
+// here we will use two pointer approach to find the nth node from the end of the linked list and remove it
+// fast
 Node *optimalRemoveNthNode(Node *head, int n)
 {
     Node *fast = head;
